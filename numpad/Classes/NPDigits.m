@@ -1,7 +1,7 @@
 
 #import "NPDigits.h"
 
-typedef enum { kEmpty, kInteger, kDecimal, kDecimalZero, kDecimalNotZero } NPDigitsState;
+typedef enum { kEmpty, kInteger, kDecimal } NPDigitsState;
 
 @interface NPDigits ()
 @property (nonatomic) NSString *stringValue;
@@ -29,89 +29,23 @@ typedef enum { kEmpty, kInteger, kDecimal, kDecimalZero, kDecimalNotZero } NPDig
 }
 
 - (void)addDigit:(int)digit {
+  if (_state == kEmpty && digit == 0) { return; }
+  [_digits appendFormat:@"%u", digit];
   switch (_state) {
-    case kEmpty: {
-      switch (digit) {
-        case 0: {
-          return;
-        }
-        default: {
-          _state = kInteger;
-          [_digits appendFormat:@"%u", digit];
-          self.stringValue   = [NSString stringWithFormat:@"%u", digit];
-          self.decimalNumber = [NSDecimalNumber numberWithInt:digit];
-          return;
-        }
-      }
-    }
+    case kEmpty:
     case kInteger: {
       _state = kInteger;
-      [_digits appendFormat:@"%u", digit];
       self.decimalNumber = [_formatter numberFromString:_digits];
       self.stringValue   = [_formatter stringFromNumber:self.decimalNumber];
       return;
     }
     case kDecimal: {
-      switch (digit) {
-        case 0: {
-          _state = kDecimalZero;
-          [_digits appendString:@"0"];
-          self.stringValue = [self.stringValue stringByAppendingString:@"0"];
-          _formatter.minimumFractionDigits++;
-          _formatter.maximumFractionDigits++;
-          return;
-        }
-        default: {
-          _state = kDecimalNotZero;
-          [_digits appendFormat:@"%u", digit];
-          _formatter.minimumFractionDigits++;
-          _formatter.maximumFractionDigits++;
-          self.decimalNumber = [_formatter numberFromString:_digits];
-          self.stringValue   = [_formatter stringFromNumber:self.decimalNumber];
-          return;
-        }
-      }
-    }
-    case kDecimalZero: {
-      switch (digit) {
-        case 0: {
-          _state = kDecimalZero;
-          [_digits appendString:@"0"];
-          self.stringValue = [self.stringValue stringByAppendingString:@"0"];
-          _formatter.minimumFractionDigits++;
-          _formatter.maximumFractionDigits++;
-          return;
-        }
-        default: {
-          _state = kDecimalNotZero;
-          [_digits appendFormat:@"%u", digit];
-          self.stringValue = [self.stringValue stringByAppendingFormat:@"%u", digit];
-          _formatter.minimumFractionDigits++;
-          _formatter.maximumFractionDigits++;
-          self.decimalNumber = [_formatter numberFromString:_digits];
-          return;
-        }
-      }
-    }
-    case kDecimalNotZero: {
-      switch (digit) {
-        case 0: {
-          _state = kDecimalZero;
-          [_digits appendString:@"0"];
-          self.stringValue = [self.stringValue stringByAppendingString:@"0"];
-          _formatter.minimumFractionDigits++;
-          _formatter.maximumFractionDigits++;
-          return;
-        }
-        default: {
-          _state = kDecimalNotZero;
-          [_digits appendFormat:@"%u", digit];
-          _formatter.minimumFractionDigits++;
-          _formatter.maximumFractionDigits++;
-          self.decimalNumber = [_formatter numberFromString:_digits];
-          self.stringValue   = [_formatter stringFromNumber:self.decimalNumber];
-          return;
-        }
+      _formatter.minimumFractionDigits++;
+      _formatter.maximumFractionDigits++;
+      self.stringValue = [self.stringValue stringByAppendingFormat:@"%u", digit];
+      if (digit != 0) {
+        self.decimalNumber = [_formatter numberFromString:_digits];
+        return;
       }
     }
   }
@@ -132,23 +66,6 @@ typedef enum { kEmpty, kInteger, kDecimal, kDecimalZero, kDecimalNotZero } NPDig
       return;
     }
     case kDecimal: {
-      _state = kDecimalZero;
-      [_digits appendString:@"0"];
-      self.stringValue = [self.stringValue stringByAppendingString:@"0"];
-      _formatter.minimumFractionDigits++;
-      _formatter.maximumFractionDigits++;
-      return;
-    }
-    case kDecimalZero: {
-      _state = kDecimalZero;
-      [_digits appendString:@"0"];
-      self.stringValue = [self.stringValue stringByAppendingString:@"0"];
-      _formatter.minimumFractionDigits++;
-      _formatter.maximumFractionDigits++;
-      return;
-    }
-    case kDecimalNotZero: {
-      _state = kDecimalZero;
       [_digits appendString:@"0"];
       self.stringValue = [self.stringValue stringByAppendingString:@"0"];
       _formatter.minimumFractionDigits++;
