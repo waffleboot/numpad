@@ -33,28 +33,44 @@
 }
 
 - (void)testZeroDigits {
+  
   [digits addDigit:0];
+
   XCTAssertNil(digits.stringValue);
   XCTAssertNil(digits.decimalNumber);
+
   [digits addDigit:0];
+  
   XCTAssertNil(digits.stringValue);
   XCTAssertNil(digits.decimalNumber);
+  
   [digits addDecimalSeparator];
+  
   XCTAssertEqualObjects(digits.stringValue, @"0.");
   XCTAssertNil(digits.decimalNumber);
+  
   [digits addDecimalSeparator];
+  
   XCTAssertEqualObjects(digits.stringValue, @"0.0");
   XCTAssertNil(digits.decimalNumber);
+  
   [digits addDigit:0];
+  
   XCTAssertEqualObjects(digits.stringValue, @"0.00");
   XCTAssertNil(digits.decimalNumber);
+  
   [digits addDigit:0];
+  
   XCTAssertEqualObjects(digits.stringValue, @"0.000");
   XCTAssertNil(digits.decimalNumber);
+  
   [digits addDecimalSeparator];
+  
   XCTAssertEqualObjects(digits.stringValue, @"0.0000");
   XCTAssertNil(digits.decimalNumber);
+  
   [digits addDigit:0];
+  
   XCTAssertEqualObjects(digits.stringValue, @"0.00000");
   XCTAssertNil(digits.decimalNumber);
 }
@@ -75,30 +91,63 @@
 }
 
 - (void)testZeroDecimalDigits {
+
   [digits addDigit:0];
+  
   XCTAssertNil(digits.stringValue);
   XCTAssertNil(digits.decimalNumber);
+  
   [digits addDecimalSeparator];
+  
   XCTAssertEqualObjects(digits.stringValue, @"0.");
   XCTAssertNil(digits.decimalNumber);
+  
   [digits addDigit:0];
+  
   XCTAssertEqualObjects(digits.stringValue, @"0.0");
   XCTAssertNil(digits.decimalNumber);
-  [digits addDigit:1];
-  XCTAssertEqualObjects(digits.stringValue, @"0.01");
-  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.01]);
+  
+  [digits addDigit:2];
+  
+  XCTAssertEqualObjects(digits.stringValue, @"0.02");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.02]);
+  
   [digits addDigit:0];
-  XCTAssertEqualObjects(digits.stringValue, @"0.010");
-  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.01]);
+
+  XCTAssertEqualObjects(digits.stringValue, @"0.020");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.02]);
+  
   [digits addDecimalSeparator];
-  XCTAssertEqualObjects(digits.stringValue, @"0.010");
-  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.01]);
+  
+  XCTAssertEqualObjects(digits.stringValue, @"0.0200");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.02]);
+  
   [digits addDigit:0];
-  XCTAssertEqualObjects(digits.stringValue, @"0.0100");
-  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.01]);
+  
+  XCTAssertEqualObjects(digits.stringValue, @"0.02000");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.02]);
+  
+  [digits addDigit:0];
+  
+  XCTAssertEqualObjects(digits.stringValue, @"0.020000");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.02]);
+  
   [digits addDigit:8];
-  XCTAssertEqualObjects(digits.stringValue, @"0.01008");
-  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.01008]);
+  
+  XCTAssertEqualObjects(digits.stringValue, @"0.0200008");
+  XCTAssertEqualWithAccuracy([digits.decimalNumber doubleValue], 0.0200008, 0.0000001);
+  
+  [digits clear];
+  [digits addDecimalSeparator];
+  [digits addDigit:1];
+  XCTAssertEqualObjects(digits.stringValue, @"0.1");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.1]);
+  [digits addDigit:2];
+  XCTAssertEqualObjects(digits.stringValue, @"0.12");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.12]);
+  [digits addDecimalSeparator];
+  XCTAssertEqualObjects(digits.stringValue, @"0.120");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:0.12]);
 }
 
 - (void)testIntegerDecimalDigits {
@@ -118,14 +167,14 @@
   XCTAssertEqualObjects(digits.stringValue, @"8.010");
   XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:8.01]);
   [digits addDecimalSeparator];
-  XCTAssertEqualObjects(digits.stringValue, @"8.010");
-  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:8.01]);
-  [digits addDigit:0];
   XCTAssertEqualObjects(digits.stringValue, @"8.0100");
   XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:8.01]);
+  [digits addDigit:0];
+  XCTAssertEqualObjects(digits.stringValue, @"8.01000");
+  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:8.01]);
   [digits addDigit:8];
-  XCTAssertEqualObjects(digits.stringValue, @"8.01008");
-  XCTAssertEqualObjects(digits.decimalNumber, [NSDecimalNumber numberWithDouble:8.01008]);
+  XCTAssertEqualObjects(digits.stringValue, @"8.010008");
+  XCTAssertEqualWithAccuracy([digits.decimalNumber doubleValue], 8.010008, 0.00001);
 }
 
 - (void)testClear {
