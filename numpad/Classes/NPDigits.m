@@ -35,7 +35,7 @@ typedef enum { kEmpty, kInteger, kDecimal } NPDigitsState;
     case kEmpty:
     case kInteger: {
       _state = kInteger;
-      self.decimalNumber = [_formatter numberFromString:_digits];
+      self.decimalNumber = (NSDecimalNumber*)[_formatter numberFromString:_digits];
       self.stringValue   = [_formatter stringFromNumber:self.decimalNumber];
       return;
     }
@@ -44,7 +44,7 @@ typedef enum { kEmpty, kInteger, kDecimal } NPDigitsState;
       _formatter.maximumFractionDigits++;
       self.stringValue = [self.stringValue stringByAppendingFormat:@"%u", digit];
       if (digit != 0) {
-        self.decimalNumber = [_formatter numberFromString:_digits];
+        self.decimalNumber = (NSDecimalNumber*)[_formatter numberFromString:_digits];
         return;
       }
     }
