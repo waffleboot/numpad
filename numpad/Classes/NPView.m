@@ -46,9 +46,10 @@ const CGFloat kSpacing = 2.0f;
   [self addSubview:stack];
   [stack autoPinEdgesToSuperviewEdges];
   self.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
-  self.layer.cornerRadius = 4.0f;
+  self.layer.cornerRadius = kSpacing * 2;
   self.layer.borderColor = self.backgroundColor.CGColor;
   self.layer.borderWidth = kSpacing;
+  self.clipsToBounds = YES;
 }
 
 - (UIStackView*)stack {
@@ -91,7 +92,7 @@ const CGFloat kSpacing = 2.0f;
   } else {
     [_digits addDigit:tag];
   }
-  [self updateElements];
+  [self update];
 }
 
 - (void)click:(UIButton*)sender {
@@ -168,10 +169,10 @@ const CGFloat kSpacing = 2.0f;
 
 - (void)clear {
   [_digits clear];
-  [self updateElements];
+  [self update];
 }
 
-- (void)updateElements {
+- (void)update {
   _amountTextField.text = _digits.stringValue;
   self.amount = _digits.decimalNumber;
   [self.delegate numpad:self amount:_digits.decimalNumber];

@@ -58,7 +58,6 @@
     _formatter.maximumFractionDigits = _fractionDigits;
     self.decimalNumber = (NSDecimalNumber*)[_formatter numberFromString:_digits];
     self.stringValue = [_formatter stringFromNumber:self.decimalNumber];
-    NSLog(@"%@", self.decimalNumber);
   }
 }
 
