@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'numpad_Example' do
+  pod 'numpad', :path => '../'
+
+  target 'numpad_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
