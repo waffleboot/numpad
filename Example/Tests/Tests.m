@@ -134,5 +134,39 @@
   [self testIntegerDecimalDigits];
 }
 
+- (void)testDecimalNumber {
+  NSString *num = @"800,000,000.8650589";
+  NSNumberFormatter *formatter = [NSNumberFormatter new];
+  formatter.numberStyle = NSNumberFormatterDecimalStyle;
+  formatter.minimumFractionDigits = 7;
+  formatter.maximumFractionDigits = 7;
+  NSDecimalNumber *decimalNumber = (NSDecimalNumber*)[formatter numberFromString:num];
+  NSLog(@"%@", decimalNumber);
+  NSLog(@"%@", [formatter stringFromNumber:decimalNumber]);
+  // 800,000,000.8650589
+  // 800,000,000.8650590
+}
+
+- (void)bugTestLongNumber {
+  [digits addDigit:8];
+  for (int i = 0; i < 8; ++i) {
+    [digits addDigit:0];
+  }
+  [digits addDecimalSeparator];
+  [digits addDigit:8];
+  [digits addDigit:6];
+  [digits addDigit:5];
+  [digits addDigit:0];
+  [digits addDigit:5];
+  [digits addDigit:8];
+  XCTAssertEqualObjects(digits.stringValue, @"800,000,000.865058");
+  [digits addDigit:9];
+  XCTAssertEqualObjects(digits.stringValue, @"800,000,000.8650589");
+  [digits addDigit:0];
+  [digits addDigit:5];
+  [digits addDigit:5];
+  XCTAssertEqualObjects(digits.stringValue, @"800,000,000.8650589055");
+}
+
 @end
 

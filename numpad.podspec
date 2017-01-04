@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-NumberPad like calculator that uses text field with inserted numbers and numeric buttons.
+NumberPad is view component with text field and numeric buttons.
                        DESC
 
   s.homepage         = 'https://github.com/waffleboot/numpad'
@@ -39,4 +39,6 @@ NumberPad like calculator that uses text field with inserted numbers and numeric
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'PureLayout', '~> 3.0'
+
 end
