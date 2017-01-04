@@ -43,19 +43,19 @@
   XCTAssertEqualObjects(digits.stringValue, @"0.");
   XCTAssertNil(digits.decimalNumber);
   [digits addDecimalSeparator];
-  XCTAssertEqualObjects(digits.stringValue, @"0.");
-  XCTAssertNil(digits.decimalNumber);
-  [digits addDigit:0];
   XCTAssertEqualObjects(digits.stringValue, @"0.0");
   XCTAssertNil(digits.decimalNumber);
   [digits addDigit:0];
   XCTAssertEqualObjects(digits.stringValue, @"0.00");
   XCTAssertNil(digits.decimalNumber);
-  [digits addDecimalSeparator];
-  XCTAssertEqualObjects(digits.stringValue, @"0.00");
-  XCTAssertNil(digits.decimalNumber);
   [digits addDigit:0];
   XCTAssertEqualObjects(digits.stringValue, @"0.000");
+  XCTAssertNil(digits.decimalNumber);
+  [digits addDecimalSeparator];
+  XCTAssertEqualObjects(digits.stringValue, @"0.0000");
+  XCTAssertNil(digits.decimalNumber);
+  [digits addDigit:0];
+  XCTAssertEqualObjects(digits.stringValue, @"0.00000");
   XCTAssertNil(digits.decimalNumber);
 }
 
@@ -166,6 +166,16 @@
   [digits addDigit:5];
   [digits addDigit:5];
   XCTAssertEqualObjects(digits.stringValue, @"800,000,000.8650589055");
+}
+
+- (void)testSomeDecimalSeparators {
+  [digits addDecimalSeparator];
+  XCTAssertEqualObjects(digits.stringValue, @"0.");
+  [digits addDecimalSeparator];
+  XCTAssertEqualObjects(digits.stringValue, @"0.0");
+  [digits addDecimalSeparator];
+  XCTAssertEqualObjects(digits.stringValue, @"0.00");
+  XCTAssertNil(digits.decimalNumber);
 }
 
 @end

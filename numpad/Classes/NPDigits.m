@@ -45,6 +45,9 @@
   } else if (!_hasPoint) {
     [_digits appendString:self.decimalSeparator];
     self.stringValue = [self.stringValue stringByAppendingString:self.decimalSeparator];
+  } else if (self.decimalNumber == nil) {
+    [_digits appendString:@"0"];
+    self.stringValue = _digits;
   }
   _hasPoint = YES;
 }
