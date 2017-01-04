@@ -91,8 +91,7 @@ const CGFloat kSpacing = 2.0f;
   } else {
     [_digits addDigit:tag];
   }
-  _amountTextField.text = _digits.stringValue;
-  self.amount = _digits.decimalNumber;
+  [self updateElements];
 }
 
 - (void)click:(UIButton*)sender {
@@ -169,8 +168,13 @@ const CGFloat kSpacing = 2.0f;
 
 - (void)clear {
   [_digits clear];
+  [self updateElements];
+}
+
+- (void)updateElements {
   _amountTextField.text = _digits.stringValue;
   self.amount = _digits.decimalNumber;
+  [self.delegate numpad:self amount:_digits.decimalNumber];
 }
 
 @end
