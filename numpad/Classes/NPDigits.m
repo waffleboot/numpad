@@ -2,7 +2,7 @@
 #import "NPDigits.h"
 
 @interface NPDigits ()
-@property (nonatomic) NSString *stringValue;
+@property (nonatomic, copy) NSString *stringValue;
 @property (nonatomic) NSDecimalNumber *decimalNumber;
 @property (nonatomic) NSString *decimalSeparator;
 @end
