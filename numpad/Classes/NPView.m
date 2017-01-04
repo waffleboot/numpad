@@ -10,6 +10,10 @@ const CGFloat kSpacing = 2.0f;
 - (CGRect)textRectForBounds:(CGRect)bounds { return CGRectInset(bounds,8,0); }
 @end
 
+@interface NPView ()
+@property (nonatomic) NSDecimalNumber *amount;
+@end
+
 @implementation NPView {
 @private
   NPDigits *_digits;
