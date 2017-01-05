@@ -7,6 +7,9 @@
 
 ![](/screenshots/sample.gif?raw=true)
 
+NPView is main components for adding to application.
+NPView sends NSDecimalNumber values over NPViewDelegate protocol.
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
