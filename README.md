@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/numpad.svg?style=flat)](http://cocoapods.org/pods/numpad)
 [![Platform](https://img.shields.io/cocoapods/p/numpad.svg?style=flat)](http://cocoapods.org/pods/numpad)
 
+![](/screenshots/sample.gif?raw=true)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
